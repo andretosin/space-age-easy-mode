@@ -164,6 +164,9 @@ if data.raw["lightning-attractor"] then
     if attractor.efficiency then
       attractor.efficiency = attractor.efficiency * 2
     end
+    if attractor.effectivity then
+      attractor.effectivity = attractor.effectivity * 2
+    end
 
     if attractor.energy_source then
       local source = attractor.energy_source
