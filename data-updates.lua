@@ -161,6 +161,7 @@ end
 -- Space Age lightning rod entities are lightning-attractor prototypes.
 if data.raw["lightning-attractor"] then
   for _, attractor in pairs(data.raw["lightning-attractor"]) do
+    -- Handle both field names for compatibility with different game/mod prototypes.
     if attractor.efficiency then
       attractor.efficiency = attractor.efficiency * 2
     end
