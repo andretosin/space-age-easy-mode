@@ -20,6 +20,12 @@ All module bonuses are doubled:
 | Productivity 3 | +10%    | +20%   |
 | Efficiency 3   | -50%    | -100%  |
 
+### Drone Buff (logistics and construction robots)
+- **Speed** ×2
+- **Cargo capacity** ×2 (logistics robots)
+
+No research required — active from the start of the game.
+
 ### Roboport Upgrades
 - **Logistics radius** ×2
 - **Construction radius** ×2
