@@ -28,7 +28,7 @@ No research required — active from the start of the game.
 
 ### Power Generation Buff
 - **Power generation** ×2 for all electric generators
-- Covers steam/turbines (including nuclear steam chain), solar and fusion generators
+- Covers steam engine, steam turbine, plasma/fusion generators, solar panels, lightning rod and advanced lightning rod
 
 ### Roboport Upgrades
 - **Logistics radius** ×2

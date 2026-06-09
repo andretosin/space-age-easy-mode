@@ -127,7 +127,8 @@ end
 -- FR-4: Power Generation Buff
 --
 -- Doubles electricity production for all power generators.
--- Covers steam/combustion/turbines, solar panels and fusion generators.
+-- Covers steam/combustion/turbines, solar panels, fusion/plasma generators,
+-- and lightning rods (normal + advanced).
 -- Applied as a base prototype modification — no research required.
 -- =============================================================================
 
@@ -154,6 +155,28 @@ end
 if data.raw["fusion-generator"] then
   for _, fusion_generator in pairs(data.raw["fusion-generator"]) do
     double_effectivity(fusion_generator)
+  end
+end
+
+-- Space Age lightning rod entities are lightning-attractor prototypes.
+if data.raw["lightning-attractor"] then
+  for _, attractor in pairs(data.raw["lightning-attractor"]) do
+    if attractor.efficiency then
+      attractor.efficiency = attractor.efficiency * 2
+    end
+
+    if attractor.energy_source then
+      local source = attractor.energy_source
+      if source.input_flow_limit then
+        source.input_flow_limit = multiply_energy(source.input_flow_limit, 2)
+      end
+      if source.output_flow_limit then
+        source.output_flow_limit = multiply_energy(source.output_flow_limit, 2)
+      end
+      if source.buffer_capacity then
+        source.buffer_capacity = multiply_energy(source.buffer_capacity, 2)
+      end
+    end
   end
 end
 
