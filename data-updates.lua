@@ -115,14 +115,10 @@ for _, robot_type in pairs(drone_types) do
       if robot.speed then
         robot.speed = robot.speed * 2
       end
-    end
-  end
-end
-
-if data.raw["logistic-robot"] then
-  for _, robot in pairs(data.raw["logistic-robot"]) do
-    if robot.max_payload_size then
-      robot.max_payload_size = robot.max_payload_size * 2
+      -- Double cargo capacity for logistics robots
+      if robot_type == "logistic-robot" and robot.max_payload_size then
+        robot.max_payload_size = robot.max_payload_size * 2
+      end
     end
   end
 end
