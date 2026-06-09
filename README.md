@@ -22,7 +22,7 @@ All module bonuses are doubled:
 
 ### Drone Buff (logistics and construction robots)
 - **Speed** ×2
-- **Cargo capacity** ×2 (logistics robots)
+- **Cargo capacity** ×2
 
 No research required — active from the start of the game.
 

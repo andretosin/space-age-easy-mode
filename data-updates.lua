@@ -103,7 +103,7 @@ end
 -- FR-3: Drone (Robot) Buff
 --
 -- Doubles base speed of all logistics and construction robots.
--- Doubles cargo capacity (max_payload_size) of all logistics robots.
+-- Doubles cargo capacity (max_payload_size) of all robots.
 -- Applied as a base prototype modification — no research required.
 -- =============================================================================
 
@@ -115,8 +115,8 @@ for _, robot_type in pairs(drone_types) do
       if robot.speed then
         robot.speed = robot.speed * 2
       end
-      -- Double cargo capacity for logistics robots
-      if robot_type == "logistic-robot" and robot.max_payload_size then
+      -- Double cargo capacity for all robots
+      if robot.max_payload_size then
         robot.max_payload_size = robot.max_payload_size * 2
       end
     end
