@@ -50,4 +50,12 @@ No research required — active from the start of the game.
 
 ## Installation
 
-Copy the `space-age-easy-mode_1.0.0` folder into your Factorio `mods/` directory and enable it from the in-game mod manager.
+Copy the `space-age-easy-mode_<version>` folder into your Factorio `mods/` directory and enable it from the in-game mod manager.
+
+
+## Packaging
+
+Run `./scripts/package.sh` to bump the patch version in `info.json` and generate a zip in this format:
+
+- `space-age-easy-mode_<version>.zip`
+- containing folder `space-age-easy-mode_<version>/` with all project files
