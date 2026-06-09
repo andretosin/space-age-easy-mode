@@ -124,7 +124,41 @@ for _, robot_type in pairs(drone_types) do
 end
 
 -- =============================================================================
--- FR-4: Roboport Upgrades
+-- FR-4: Power Generation Buff
+--
+-- Doubles electricity production for all power generators.
+-- Covers steam/combustion/turbines, solar panels and fusion generators.
+-- Applied as a base prototype modification — no research required.
+-- =============================================================================
+
+local function double_effectivity(prototype)
+  if prototype and prototype.effectivity then
+    prototype.effectivity = prototype.effectivity * 2
+  end
+end
+
+if data.raw["generator"] then
+  for _, generator in pairs(data.raw["generator"]) do
+    double_effectivity(generator)
+  end
+end
+
+if data.raw["solar-panel"] then
+  for _, panel in pairs(data.raw["solar-panel"]) do
+    if panel.production then
+      panel.production = multiply_energy(panel.production, 2)
+    end
+  end
+end
+
+if data.raw["fusion-generator"] then
+  for _, fusion_generator in pairs(data.raw["fusion-generator"]) do
+    double_effectivity(fusion_generator)
+  end
+end
+
+-- =============================================================================
+-- FR-5: Roboport Upgrades
 --
 -- Expands logistics and construction radius (×2).
 -- Quadruples charging station count and charging energy per station (×4).

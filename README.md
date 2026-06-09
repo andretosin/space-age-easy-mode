@@ -26,6 +26,10 @@ All module bonuses are doubled:
 
 No research required — active from the start of the game.
 
+### Power Generation Buff
+- **Power generation** ×2 for all electric generators
+- Covers steam/turbines (including nuclear steam chain), solar and fusion generators
+
 ### Roboport Upgrades
 - **Logistics radius** ×2
 - **Construction radius** ×2
