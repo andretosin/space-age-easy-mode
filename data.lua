@@ -1,0 +1,4 @@
+-- data.lua
+-- Intentionally empty. All prototype modifications are done in data-updates.lua,
+-- which runs after all mods (including Space Age) have loaded their own data.lua,
+-- ensuring full compatibility and automatic coverage of expansion content.

@@ -1,0 +1,43 @@
+# Space Age Easy Mode
+
+Factorio mod that reduces grind and accelerates progression by applying global buffs during the data loading stage. Compatible with the base game and the Space Age expansion.
+
+## Effects
+
+### Global Machine Buff (all assembling machines, furnaces, mining drills, labs)
+- **+100% Speed**
+- **+100% Productivity**
+- **-40% Energy Consumption**
+
+Bonuses are applied as base effects and stack normally with installed modules.
+
+### Module Rebalance
+All module bonuses are doubled:
+
+| Module         | Vanilla | Mod    |
+| -------------- | ------- | ------ |
+| Speed 3        | +50%    | +100%  |
+| Productivity 3 | +10%    | +20%   |
+| Efficiency 3   | -50%    | -100%  |
+
+### Roboport Upgrades
+- **Logistics radius** ×2
+- **Construction radius** ×2
+- **Charging slots** ×4
+- **Charging speed** ×4
+
+## Compatibility
+
+- Factorio 2.0+ (base game)
+- Space Age (optional dependency)
+- All modifications use generic prototype iteration — no hardcoded entity names, so modded content is covered automatically.
+
+## Technical Notes
+
+- All logic runs in `data-updates.lua` (data stage only).
+- No `control.lua`, no runtime events, no per-tick logic.
+- Zero performance impact during gameplay.
+
+## Installation
+
+Copy the `space-age-easy-mode_1.0.0` folder into your Factorio `mods/` directory and enable it from the in-game mod manager.
