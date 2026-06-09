@@ -20,6 +20,16 @@ All module bonuses are doubled:
 | Productivity 3 | +10%    | +20%   |
 | Efficiency 3   | -50%    | -100%  |
 
+### Drone Buff (logistics and construction robots)
+- **Speed** ×2
+- **Cargo capacity** ×2
+
+No research required — active from the start of the game.
+
+### Power Generation Buff
+- **Power generation** ×2 for all electric generators
+- Covers steam engine, steam turbine, plasma/fusion generators, solar panels, lightning rod and advanced lightning rod
+
 ### Roboport Upgrades
 - **Logistics radius** ×2
 - **Construction radius** ×2

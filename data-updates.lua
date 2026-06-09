@@ -100,7 +100,92 @@ if data.raw["module"] then
 end
 
 -- =============================================================================
--- FR-3: Roboport Upgrades
+-- FR-3: Drone (Robot) Buff
+--
+-- Doubles base speed of all logistics and construction robots.
+-- Doubles cargo capacity (max_payload_size) of all robots.
+-- Applied as a base prototype modification — no research required.
+-- =============================================================================
+
+local drone_types = { "logistic-robot", "construction-robot" }
+
+for _, robot_type in pairs(drone_types) do
+  if data.raw[robot_type] then
+    for _, robot in pairs(data.raw[robot_type]) do
+      if robot.speed then
+        robot.speed = robot.speed * 2
+      end
+      -- Double cargo capacity for all robots
+      if robot.max_payload_size then
+        robot.max_payload_size = robot.max_payload_size * 2
+      end
+    end
+  end
+end
+
+-- =============================================================================
+-- FR-4: Power Generation Buff
+--
+-- Doubles electricity production for all power generators.
+-- Covers steam/combustion/turbines, solar panels, fusion/plasma generators,
+-- and lightning rods (normal + advanced).
+-- Applied as a base prototype modification — no research required.
+-- =============================================================================
+
+local function double_effectivity(prototype)
+  if prototype and prototype.effectivity then
+    prototype.effectivity = prototype.effectivity * 2
+  end
+end
+
+if data.raw["generator"] then
+  for _, generator in pairs(data.raw["generator"]) do
+    double_effectivity(generator)
+  end
+end
+
+if data.raw["solar-panel"] then
+  for _, panel in pairs(data.raw["solar-panel"]) do
+    if panel.production then
+      panel.production = multiply_energy(panel.production, 2)
+    end
+  end
+end
+
+if data.raw["fusion-generator"] then
+  for _, fusion_generator in pairs(data.raw["fusion-generator"]) do
+    double_effectivity(fusion_generator)
+  end
+end
+
+-- Space Age lightning rod entities are lightning-attractor prototypes.
+if data.raw["lightning-attractor"] then
+  for _, attractor in pairs(data.raw["lightning-attractor"]) do
+    -- Handle both field names for compatibility with different game/mod prototypes.
+    if attractor.efficiency then
+      attractor.efficiency = attractor.efficiency * 2
+    end
+    if attractor.effectivity then
+      attractor.effectivity = attractor.effectivity * 2
+    end
+
+    if attractor.energy_source then
+      local source = attractor.energy_source
+      if source.input_flow_limit then
+        source.input_flow_limit = multiply_energy(source.input_flow_limit, 2)
+      end
+      if source.output_flow_limit then
+        source.output_flow_limit = multiply_energy(source.output_flow_limit, 2)
+      end
+      if source.buffer_capacity then
+        source.buffer_capacity = multiply_energy(source.buffer_capacity, 2)
+      end
+    end
+  end
+end
+
+-- =============================================================================
+-- FR-5: Roboport Upgrades
 --
 -- Expands logistics and construction radius (×2).
 -- Quadruples charging station count and charging energy per station (×4).

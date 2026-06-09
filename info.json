@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "title": "Space Age Easy Mode",
   "author": "Andre",
-  "description": "Reduces grind and accelerates progression. Applies global speed/productivity/efficiency bonuses to all productive machines, doubles all module effects, and upgrades roboports with larger radius and faster charging.",
+  "description": "Reduces grind and accelerates progression. Applies global speed/productivity/efficiency bonuses to all productive machines, doubles all module effects, buffs drones with 2× speed and 2× cargo capacity, doubles power generation for steam engine/turbine, plasma/fusion, solar, and lightning rods, and upgrades roboports with larger radius and faster charging.",
   "factorio_version": "2.0",
   "dependencies": [
     "? space-age"
