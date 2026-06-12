@@ -13,7 +13,7 @@ Date: 12. 06. 2026
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 09. 06. 2026
-  Bugfixes:
+  Info:
     - General improvements to package infrastructure and release automation.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
@@ -28,23 +28,19 @@ Date: 09. 06. 2026
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 09. 06. 2026
-  Major Features:
+  Changes:
     - Added robot buffs for logistic and construction robots, doubling robot speed.
     - Added robot cargo capacity buffs, including construction robot payload capacity.
     - Added 2x electric power generation buffs for generators, solar panels, fusion generators, and lightning attractors.
-  Compatibility:
     - Added lightning attractor support for both efficiency and effectivity prototype fields.
     - Scaled lightning attractor energy source flow limits and buffer capacity to match the 2x power generation goal.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 09. 06. 2026
-  Major Features:
+  Changes:
     - Initial release.
     - Added global base speed, productivity, and energy consumption buffs for assembling machines, furnaces, mining drills, labs, rocket silos, recycling machines, and agricultural towers.
     - Added generic module rebalance logic for module effects.
     - Added roboport upgrades for logistics radius, construction radius, charging station count, and charging energy.
-  Compatibility:
-    - Declared Factorio 2.0 support with optional Space Age dependency.
-    - Applied changes during the data-updates stage with no runtime control script.
   Info:
     - Initial setup of mod metadata, locale, and data files.

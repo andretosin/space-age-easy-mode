@@ -72,4 +72,4 @@ Pushes to `develop` build the same versioned zip as a workflow artifact for loca
 - `1.0.1` - Added robot speed/cargo buffs and 2x power generation coverage for generators, solar panels, fusion generators, and lightning attractors.
 - `1.0.0` - Initial release with global productive machine buffs, module rebalance, roboport upgrades, Factorio 2.0 support, and optional Space Age compatibility.
 
-Maintainer note: whenever `info.json` version changes for a release, append a new section to the top of `changelog.txt` using Factorio's official changelog format.
+Maintainer note: whenever `info.json` version changes for a release, append a new section to the top of `changelog.txt` using the custom tags `Changes`, `Bug Fixes`, and `Info`.
