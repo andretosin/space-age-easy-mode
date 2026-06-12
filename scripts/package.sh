@@ -10,7 +10,7 @@ if [[ ! -f "${INFO_JSON}" ]]; then
   exit 1
 fi
 
-read -r MOD_NAME NEW_VERSION < <(python - <<'PY' "${INFO_JSON}"
+read -r MOD_NAME VERSION < <(python - <<'PY' "${INFO_JSON}"
 import json
 import pathlib
 import re
@@ -22,23 +22,14 @@ with info_path.open("r", encoding="utf-8") as fh:
 
 name = data["name"]
 version = data["version"]
-match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", version)
-if not match:
+if not re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", version):
     raise SystemExit(f"Unsupported version format in info.json: {version}")
 
-major, minor, patch = map(int, match.groups())
-new_version = f"{major}.{minor}.{patch + 1}"
-data["version"] = new_version
-
-with info_path.open("w", encoding="utf-8") as fh:
-    json.dump(data, fh, ensure_ascii=False, indent=2)
-    fh.write("\n")
-
-print(name, new_version)
+print(name, version)
 PY
 )
 
-PACKAGE_DIR_NAME="${MOD_NAME}_${NEW_VERSION}"
+PACKAGE_DIR_NAME="${MOD_NAME}_${VERSION}"
 ZIP_NAME="${PACKAGE_DIR_NAME}.zip"
 TMP_DIR="$(mktemp -d /tmp/${MOD_NAME}.XXXXXX)"
 PACKAGE_DIR="${TMP_DIR}/${PACKAGE_DIR_NAME}"
@@ -63,5 +54,5 @@ rsync -a \
   zip -r "${REPO_ROOT}/${ZIP_NAME}" "${PACKAGE_DIR_NAME}" >/dev/null
 )
 
-echo "Updated info.json version to ${NEW_VERSION}"
+echo "Using info.json version ${VERSION}"
 echo "Created ${ZIP_NAME}"

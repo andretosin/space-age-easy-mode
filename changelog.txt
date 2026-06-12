@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+Date: 12. 06. 2026
+  Info:
+    - Updated release automation to use the version declared in info.json instead of automatically incrementing patch versions.
+    - Added automated Factorio Mod Portal publishing for main-branch releases.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.5
 Date: 12. 06. 2026
   Bugfixes:
