@@ -1,0 +1,46 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+Date: 12. 06. 2026
+  Info:
+    - General improvements to package infrastructure and automated Mod Portal publishing.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 12. 06. 2026
+  Changes:
+    - Kept vanilla module energy consumption penalties unchanged when doubling module bonuses.
+  Info:
+    - General improvements to development infrastructure and testing processes.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 09. 06. 2026
+  Info:
+    - General improvements to package infrastructure and release automation.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 09. 06. 2026
+  Info:
+    - General improvements to package infrastructure and release automation.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 09. 06. 2026
+  Info:
+    - General improvements to package infrastructure and documentation updates.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 09. 06. 2026
+  Changes:
+    - Added robot buffs for logistic and construction robots, doubling robot speed.
+    - Added robot cargo capacity buffs, including construction robot payload capacity.
+    - Added 2x electric power generation buffs for generators, solar panels, fusion generators, and lightning attractors.
+    - Added lightning attractor support for both efficiency and effectivity prototype fields.
+    - Scaled lightning attractor energy source flow limits and buffer capacity to match the 2x power generation goal.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 09. 06. 2026
+  Changes:
+    - Initial release.
+    - Added global base speed, productivity, and energy consumption buffs for assembling machines, furnaces, mining drills, labs, rocket silos, recycling machines, and agricultural towers.
+    - Added generic module rebalance logic for module effects.
+    - Added roboport upgrades for logistics radius, construction radius, charging station count, and charging energy.
+  Info:
+    - Initial setup of mod metadata, locale, and data files.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # package-dev.sh
-# Assembles the mod .zip for testing purposes without bumping info.json version.
+# Assembles the mod .zip for testing purposes using the version in info.json.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -50,4 +50,4 @@ rsync -a \
   zip -r "${REPO_ROOT}/${ZIP_NAME}" "${PACKAGE_DIR_NAME}" >/dev/null
 )
 
-echo "Created ${ZIP_NAME} (version ${CURRENT_VERSION}, no version bump)"
+echo "Created ${ZIP_NAME} (version ${CURRENT_VERSION} from info.json)"
