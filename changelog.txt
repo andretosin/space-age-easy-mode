@@ -2,34 +2,29 @@
 Version: 1.0.6
 Date: 12. 06. 2026
   Info:
-    - Updated release automation to use the version declared in info.json instead of automatically incrementing patch versions.
-    - Added automated Factorio Mod Portal publishing for main-branch releases.
+    - General improvements to package infrastructure and automated Mod Portal publishing.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.5
 Date: 12. 06. 2026
   Bugfixes:
     - Kept vanilla module energy consumption penalties unchanged when doubling module bonuses.
-  Changes:
-    - Module rebalance still doubles speed, productivity, and quality effects.
   Info:
-    - Added a develop-branch build workflow and a package-dev script for test zip creation without bumping info.json.
+    - General improvements to development infrastructure and testing processes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 09. 06. 2026
   Bugfixes:
-    - Excluded scripts and GitHub workflow files from generated release zip files for Mod Portal compatibility.
+    - General improvements to package infrastructure and release automation.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 09. 06. 2026
   Info:
-    - Added a GitHub Actions release workflow for main-branch releases.
-    - Automated release packaging, info.json version bump commits, git tags, and GitHub Release asset uploads.
+    - General improvements to package infrastructure and release automation.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 09. 06. 2026
   Info:
-    - Added scripts/package.sh to bump the patch version in info.json and create a versioned mod zip.
-    - Updated README packaging instructions and versioned installation path guidance.
+    - General improvements to package infrastructure and documentation updates.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 09. 06. 2026
@@ -42,8 +37,6 @@ Date: 09. 06. 2026
     - Scaled lightning attractor energy source flow limits and buffer capacity to match the 2x power generation goal.
   Changes:
     - Updated mod metadata, locale description, and README to document robot and power generation buffs.
-  Info:
-    - Refactored robot buff logic into a shared pass over logistic and construction robot prototypes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 09. 06. 2026
@@ -56,4 +49,4 @@ Date: 09. 06. 2026
     - Declared Factorio 2.0 support with optional Space Age dependency.
     - Applied changes during the data-updates stage with no runtime control script.
   Info:
-    - Added initial README, mod metadata, locale metadata, data.lua, and data-updates.lua.
+    - Initial setup of mod metadata, locale, and data files.
