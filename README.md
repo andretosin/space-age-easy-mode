@@ -59,3 +59,14 @@ Run `./scripts/package.sh` to bump the patch version in `info.json` and generate
 
 - `space-age-easy-mode_<version>.zip`
 - containing folder `space-age-easy-mode_<version>/` with all project files
+
+## Version History
+
+- `1.0.5` - Kept vanilla module energy consumption penalties unchanged while continuing to double speed, productivity, and quality module bonuses; added develop build packaging.
+- `1.0.4` - Excluded repository automation files and scripts from release zips for Mod Portal compatibility.
+- `1.0.3` - Added automated main-branch release workflow with version bump commits, tags, GitHub Releases, and zip uploads.
+- `1.0.2` - Added version-bumping packaging script and documented versioned release artifacts.
+- `1.0.1` - Added robot speed/cargo buffs and 2x power generation coverage for generators, solar panels, fusion generators, and lightning attractors.
+- `1.0.0` - Initial release with global productive machine buffs, module rebalance, roboport upgrades, Factorio 2.0 support, and optional Space Age compatibility.
+
+Maintainer note: whenever `info.json` version changes for a release, append a new section to the top of `changelog.txt` using Factorio's official changelog format.
