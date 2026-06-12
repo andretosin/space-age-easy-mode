@@ -28,7 +28,7 @@ Date: 09. 06. 2026
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 09. 06. 2026
-    Major Features:
+  Major Features:
     - Added robot buffs for logistic and construction robots, doubling robot speed.
     - Added robot cargo capacity buffs, including construction robot payload capacity.
     - Added 2x electric power generation buffs for generators, solar panels, fusion generators, and lightning attractors.
