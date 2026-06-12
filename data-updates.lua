@@ -92,7 +92,7 @@ if data.raw["module"] then
 
       if e.speed        then e.speed        = get_bonus(e.speed)        * 2 end
       if e.productivity then e.productivity = get_bonus(e.productivity) * 2 end
-      if e.consumption  then e.consumption  = get_bonus(e.consumption)  * 2 end
+      -- consumption is intentionally left unchanged — vanilla energy penalty is kept as-is
       if e.quality      then e.quality      = get_bonus(e.quality)      * 2 end
       -- pollution is intentionally left unchanged (not a goal of this mod)
     end
