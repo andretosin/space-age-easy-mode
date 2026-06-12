@@ -1,0 +1,32 @@
+name: Develop Build
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run package-dev.sh
+        run: bash scripts/package-dev.sh
+
+      - name: Read mod info
+        id: info
+        run: |
+          VERSION=$(python -c "import json; print(json.load(open('info.json'))['version'])")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          MOD_NAME=$(python -c "import json; print(json.load(open('info.json'))['name'])")
+          echo "zip=${MOD_NAME}_${VERSION}.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.info.outputs.zip }}
+          path: ${{ steps.info.outputs.zip }}
+          retention-days: 7
