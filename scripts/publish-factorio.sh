@@ -58,19 +58,13 @@ fi
 echo "Requesting Factorio Mod Portal upload URL for ${MOD_NAME} ${VERSION}"
 INIT_RESPONSE_FILE="$(mktemp)"
 TEMP_FILES+=("${INIT_RESPONSE_FILE}")
-INIT_URL="$(python - <<'PY' "${INIT_UPLOAD_URL}" "${MOD_NAME}" "${FACTORIO_MOD_PORTAL_TOKEN}"
-import sys
-from urllib.parse import urlencode
-
-base_url, mod_name, token = sys.argv[1:]
-print(f"{base_url}?{urlencode({'mod': mod_name, 'token': token})}")
-PY
-)"
 INIT_STATUS="$(curl -sS \
   -X POST \
   -o "${INIT_RESPONSE_FILE}" \
   -w "%{http_code}" \
-  "${INIT_URL}")"
+  -H "Authorization: Bearer ${FACTORIO_MOD_PORTAL_TOKEN}" \
+  -F "mod=${MOD_NAME}" \
+  "${INIT_UPLOAD_URL}")"
 
 if [[ "${INIT_STATUS}" -lt 200 || "${INIT_STATUS}" -ge 300 ]]; then
   echo "Factorio Mod Portal init_upload failed with HTTP ${INIT_STATUS}" >&2
