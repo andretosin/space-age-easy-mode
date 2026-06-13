@@ -1,6 +1,6 @@
 {
   "name": "space-age-easy-mode",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "title": "Space Age Easy Mode",
   "author": "André Luiz Tosin",
   "description": "Reduces grind and accelerates progression. Applies global speed/productivity/efficiency bonuses to all productive machines, doubles all module effects, buffs drones with 2× speed and 2× cargo capacity, doubles power generation for steam engine/turbine, plasma/fusion, solar, and lightning rods, and upgrades roboports with larger radius and faster charging.",
