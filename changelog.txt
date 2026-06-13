@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.7
 Date: 12. 06. 2026
-  Info:
-    - Fixed Factorio Mod Portal upload automation to send init_upload parameters through the request URL and report API error response bodies.
-    - Allowed release reruns when the version tag already points to the current commit.
+  Bugfixes:
     - Fixed roboport charging so robots spread around the port instead of stacking on top of each other at its centre.
+  Info:
+    - General improvements to package infrastructure and automated Mod Portal publishing.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.6
 Date: 12. 06. 2026

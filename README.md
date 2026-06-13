@@ -64,7 +64,7 @@ Pushes to `develop` build the same versioned zip as a workflow artifact for loca
 
 ## Version History
 
-- `1.0.7` - Fixed Factorio Mod Portal upload automation diagnostics, made release reruns tolerate tags already created for the current commit, and fixed roboport charging so robots spread around the port instead of stacking at its centre.
+- `1.0.7` - Fixed roboport charging so robots spread around the port instead of stacking at its centre; general improvements to package infrastructure and automated Mod Portal publishing.
 - `1.0.6` - Updated release automation to use the version declared in `info.json` and publish main-branch releases to the Factorio Mod Portal.
 - `1.0.5` - Kept vanilla module energy consumption penalties unchanged while continuing to double speed, productivity, and quality module bonuses; added develop build packaging.
 - `1.0.4` - Excluded repository automation files and scripts from release zips for Mod Portal compatibility.
