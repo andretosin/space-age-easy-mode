@@ -1,0 +1,3 @@
+# Build output from scripts/package*.sh
+/build/
+*.zip

@@ -11,6 +11,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 INFO_JSON="${REPO_ROOT}/info.json"
 INIT_UPLOAD_URL="https://mods.factorio.com/api/v2/mods/releases/init_upload"
+TEMP_FILES=()
+
+cleanup() {
+  for temp_file in "${TEMP_FILES[@]}"; do
+    rm -f "${temp_file}"
+  done
+}
+trap cleanup EXIT
 
 if [[ ! -f "${ZIP_PATH}" ]]; then
   echo "Zip file not found: ${ZIP_PATH}" >&2
@@ -48,11 +56,24 @@ if [[ "$(basename "${ZIP_PATH}")" != "${EXPECTED_ZIP}" ]]; then
 fi
 
 echo "Requesting Factorio Mod Portal upload URL for ${MOD_NAME} ${VERSION}"
-INIT_RESPONSE="$(curl --fail-with-body -sS \
+INIT_RESPONSE_FILE="$(mktemp)"
+TEMP_FILES+=("${INIT_RESPONSE_FILE}")
+INIT_STATUS="$(curl -sS \
   -X POST \
+  -o "${INIT_RESPONSE_FILE}" \
+  -w "%{http_code}" \
   -H "Authorization: Bearer ${FACTORIO_MOD_PORTAL_TOKEN}" \
   -F "mod=${MOD_NAME}" \
   "${INIT_UPLOAD_URL}")"
+
+if [[ "${INIT_STATUS}" -lt 200 || "${INIT_STATUS}" -ge 300 ]]; then
+  echo "Factorio Mod Portal init_upload failed with HTTP ${INIT_STATUS}" >&2
+  cat "${INIT_RESPONSE_FILE}" >&2
+  echo >&2
+  exit 1
+fi
+
+INIT_RESPONSE="$(cat "${INIT_RESPONSE_FILE}")"
 
 UPLOAD_URL="$(python - <<'PY' "${INIT_RESPONSE}"
 import json
@@ -71,11 +92,23 @@ PY
 )"
 
 echo "Uploading ${EXPECTED_ZIP} to Factorio Mod Portal"
-curl --fail-with-body -sS \
+UPLOAD_RESPONSE_FILE="$(mktemp)"
+TEMP_FILES+=("${UPLOAD_RESPONSE_FILE}")
+UPLOAD_STATUS="$(curl -sS \
   -X POST \
-  -H "Authorization: Bearer ${FACTORIO_MOD_PORTAL_TOKEN}" \
+  -o "${UPLOAD_RESPONSE_FILE}" \
+  -w "%{http_code}" \
   -F "file=@${ZIP_PATH}" \
-  "${UPLOAD_URL}"
+  "${UPLOAD_URL}")"
+
+if [[ "${UPLOAD_STATUS}" -lt 200 || "${UPLOAD_STATUS}" -ge 300 ]]; then
+  echo "Factorio Mod Portal upload failed with HTTP ${UPLOAD_STATUS}" >&2
+  cat "${UPLOAD_RESPONSE_FILE}" >&2
+  echo >&2
+  exit 1
+fi
+
+cat "${UPLOAD_RESPONSE_FILE}"
 
 echo
 echo "Published ${MOD_NAME} ${VERSION} to Factorio Mod Portal"

@@ -34,8 +34,13 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git fetch --tags
           if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
-            echo "Tag v${{ steps.version.outputs.version }} already exists. Update info.json before publishing a new release." >&2
-            exit 1
+            TAG_SHA="$(git rev-list -n 1 "v${{ steps.version.outputs.version }}")"
+            if [ "${TAG_SHA}" != "${GITHUB_SHA}" ]; then
+              echo "Tag v${{ steps.version.outputs.version }} already exists on another commit. Update info.json before publishing a new release." >&2
+              exit 1
+            fi
+            echo "Tag v${{ steps.version.outputs.version }} already exists on this commit; continuing."
+            exit 0
           fi
           git tag "v${{ steps.version.outputs.version }}"
           git push origin "v${{ steps.version.outputs.version }}"

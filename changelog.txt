@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.7
+Date: 12. 06. 2026
+  Bugfixes:
+    - Fixed roboport charging so robots spread around the port instead of stacking on top of each other at its centre.
+  Info:
+    - General improvements to package infrastructure and automated Mod Portal publishing.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.6
 Date: 12. 06. 2026
   Info:
