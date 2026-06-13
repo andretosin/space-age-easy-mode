@@ -25,7 +25,13 @@ if [[ ! -f "${ZIP_PATH}" ]]; then
   exit 1
 fi
 
-if [[ -z "${FACTORIO_MOD_PORTAL_TOKEN:-}" ]]; then
+# Strip any whitespace/newlines a pasted secret may carry. A trailing newline
+# in the GitHub secret would corrupt the "Authorization: Bearer <token>" header
+# and make the API reject it as InvalidApiKey. Factorio API keys contain no
+# whitespace, so removing all of it is safe.
+FACTORIO_MOD_PORTAL_TOKEN="$(printf '%s' "${FACTORIO_MOD_PORTAL_TOKEN:-}" | tr -d '[:space:]')"
+
+if [[ -z "${FACTORIO_MOD_PORTAL_TOKEN}" ]]; then
   echo "FACTORIO_MOD_PORTAL_TOKEN is required" >&2
   exit 1
 fi
@@ -70,6 +76,9 @@ if [[ "${INIT_STATUS}" -lt 200 || "${INIT_STATUS}" -ge 300 ]]; then
   echo "Factorio Mod Portal init_upload failed with HTTP ${INIT_STATUS}" >&2
   cat "${INIT_RESPONSE_FILE}" >&2
   echo >&2
+  echo "If this is InvalidApiKey: FACTORIO_MOD_PORTAL_TOKEN must be an API key from" >&2
+  echo "https://factorio.com/profile with the 'Mod Portal: Upload Mods' usage enabled," >&2
+  echo "set as a repository secret with no surrounding whitespace." >&2
   exit 1
 fi
 
