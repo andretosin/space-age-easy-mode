@@ -203,13 +203,40 @@ if data.raw["roboport"] then
       roboport.logistics_connection_distance = roboport.logistics_connection_distance * 2
     end
 
-    -- Quadruple charging slot count.
-    -- When charging_station_count == 0 the engine derives the count from
-    -- charging_offsets, so we compute an explicit value from that array.
-    if roboport.charging_station_count and roboport.charging_station_count > 0 then
+    -- Quadruple charging slots.
+    --
+    -- The engine reads each robot's charging position from charging_offsets and
+    -- treats charging_station_count purely as a count. If the count exceeds the
+    -- number of offsets, the surplus stations have no position and fall back to
+    -- the roboport centre (0,0) — so every extra robot piles up on the same
+    -- pixel. To add capacity without that pile-up we expand charging_offsets to
+    -- match the new count, fanning four points around each original offset so
+    -- robots stay spread around the roboport.
+    if roboport.charging_offsets and #roboport.charging_offsets > 0 then
+      -- 2×2 fan around each original offset (~0.6 tiles apart). The number of
+      -- entries here is the charging-slot multiplier (×4).
+      local fan = {
+        { -0.3, -0.3 },
+        {  0.3, -0.3 },
+        { -0.3,  0.3 },
+        {  0.3,  0.3 },
+      }
+      local expanded = {}
+      for _, offset in pairs(roboport.charging_offsets) do
+        local ox = offset[1] or offset.x
+        local oy = offset[2] or offset.y
+        if ox and oy then
+          for _, d in pairs(fan) do
+            expanded[#expanded + 1] = { ox + d[1], oy + d[2] }
+          end
+        end
+      end
+      roboport.charging_offsets = expanded
+      roboport.charging_station_count = #expanded
+    elseif roboport.charging_station_count and roboport.charging_station_count > 0 then
+      -- No offsets to expand; multiply the explicit count and let the engine
+      -- position the extra stations itself.
       roboport.charging_station_count = roboport.charging_station_count * 4
-    elseif roboport.charging_offsets and #roboport.charging_offsets > 0 then
-      roboport.charging_station_count = #roboport.charging_offsets * 4
     end
 
     -- Quadruple charging energy per station (Energy is stored as a string, e.g. "1000kW")
