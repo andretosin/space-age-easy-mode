@@ -188,7 +188,7 @@ end
 -- FR-5: Roboport Upgrades
 --
 -- Expands logistics and construction radius (×2).
--- Quadruples charging station count and charging energy per station (×4).
+-- Quadruples charging slots (via charging_offsets) and charging energy per station (×4).
 -- =============================================================================
 
 if data.raw["roboport"] then
@@ -203,15 +203,18 @@ if data.raw["roboport"] then
       roboport.logistics_connection_distance = roboport.logistics_connection_distance * 2
     end
 
-    -- Quadruple charging slots.
+    -- Quadruple charging slots without bunching robots on the roboport centre.
     --
-    -- The engine reads each robot's charging position from charging_offsets and
-    -- treats charging_station_count purely as a count. If the count exceeds the
-    -- number of offsets, the surplus stations have no position and fall back to
-    -- the roboport centre (0,0) — so every extra robot piles up on the same
-    -- pixel. To add capacity without that pile-up we expand charging_offsets to
-    -- match the new count, fanning four points around each original offset so
-    -- robots stay spread around the roboport.
+    -- The vanilla roboport lists explicit charging positions in charging_offsets
+    -- and leaves charging_station_count at 0, so the engine derives the slot
+    -- count from the offsets and parks each robot on its own offset. As soon as
+    -- charging_station_count is set to a non-zero value the engine stops using
+    -- the offsets and sends every robot to stationing_offset (the port centre) —
+    -- which is what made them all charge on the same pixel.
+    --
+    -- So to add capacity we expand charging_offsets (fanning four points around
+    -- each original offset) and leave charging_station_count at 0, letting the
+    -- engine derive the larger count from the expanded offsets.
     if roboport.charging_offsets and #roboport.charging_offsets > 0 then
       -- 2×2 fan around each original offset (~0.6 tiles apart). The number of
       -- entries here is the charging-slot multiplier (×4).
@@ -232,10 +235,13 @@ if data.raw["roboport"] then
         end
       end
       roboport.charging_offsets = expanded
-      roboport.charging_station_count = #expanded
+      -- Must stay 0/nil: a non-zero count makes robots ignore the offsets above
+      -- and stack at the roboport centre. The engine derives the count from the
+      -- offset array instead.
+      roboport.charging_station_count = nil
     elseif roboport.charging_station_count and roboport.charging_station_count > 0 then
-      -- No offsets to expand; multiply the explicit count and let the engine
-      -- position the extra stations itself.
+      -- Roboport that defines a slot count but no offsets (the engine
+      -- auto-positions those stations); just multiply the count.
       roboport.charging_station_count = roboport.charging_station_count * 4
     end
 
