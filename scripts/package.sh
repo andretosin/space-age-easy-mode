@@ -44,7 +44,9 @@ mkdir -p "${PACKAGE_DIR}"
 rsync -a \
   --exclude '.git/' \
   --exclude '.github/' \
+  --exclude '.gitignore' \
   --exclude 'scripts/' \
+  --exclude 'build/' \
   --exclude '*.zip' \
   --exclude "${PACKAGE_DIR_NAME}/" \
   "${REPO_ROOT}/" "${PACKAGE_DIR}/"
