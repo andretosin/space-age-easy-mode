@@ -188,7 +188,9 @@ end
 -- FR-5: Roboport Upgrades
 --
 -- Expands logistics and construction radius (×2).
--- Quadruples charging slots (via charging_offsets) and charging energy per station (×4).
+-- Quadruples the charging slot count (×4) and charging energy/speed (×4).
+-- The extra slots are generated as evenly spaced charging_offsets on a ring
+-- around the port, so robots charge in a tidy halo instead of stacking.
 -- =============================================================================
 
 if data.raw["roboport"] then
@@ -203,41 +205,41 @@ if data.raw["roboport"] then
       roboport.logistics_connection_distance = roboport.logistics_connection_distance * 2
     end
 
-    -- Quadruple charging slots without bunching robots on the roboport centre.
+    -- Quadruple the charging slots, spread cleanly around the port.
     --
-    -- The vanilla roboport lists explicit charging positions in charging_offsets
-    -- and leaves charging_station_count at 0, so the engine derives the slot
-    -- count from the offsets and parks each robot on its own offset. As soon as
-    -- charging_station_count is set to a non-zero value the engine stops using
-    -- the offsets and sends every robot to stationing_offset (the port centre) —
-    -- which is what made them all charge on the same pixel.
-    --
-    -- So to add capacity we expand charging_offsets (fanning four points around
-    -- each original offset) and leave charging_station_count at 0, letting the
-    -- engine derive the larger count from the expanded offsets.
+    -- charging_offsets sets both the slot count (when charging_station_count is
+    -- 0) and where each robot parks to charge. charging_station_count must stay
+    -- 0/nil: a non-zero value makes the engine ignore the offsets and stack
+    -- every robot on the port centre (the original bug). And clustering the
+    -- offsets tightly makes charging robots overlap into a blob. So we generate
+    -- 4x as many offsets evenly spaced on a ring, with enough spacing that
+    -- neighbouring robots do not overlap.
     if roboport.charging_offsets and #roboport.charging_offsets > 0 then
-      -- 2×2 fan around each original offset (~0.6 tiles apart). The number of
-      -- entries here is the charging-slot multiplier (×4).
-      local fan = {
-        { -0.3, -0.3 },
-        {  0.3, -0.3 },
-        { -0.3,  0.3 },
-        {  0.3,  0.3 },
-      }
+      local originals = roboport.charging_offsets
+      local slot_count = #originals * 4
+
+      -- Keep the ring at least at the original charging distance.
+      local base_radius = 0
+      for _, offset in pairs(originals) do
+        local ox = offset[1] or offset.x or 0
+        local oy = offset[2] or offset.y or 0
+        local r = math.sqrt(ox * ox + oy * oy)
+        if r > base_radius then base_radius = r end
+      end
+      if base_radius == 0 then base_radius = 1.5 end
+
+      -- Grow the radius so neighbours keep ~0.85 tiles of spacing no matter how
+      -- many slots we end up generating (spacing = 2*pi*radius / slot_count).
+      local spacing = 0.85
+      local radius = math.max(base_radius, slot_count * spacing / (2 * math.pi))
+
       local expanded = {}
-      for _, offset in pairs(roboport.charging_offsets) do
-        local ox = offset[1] or offset.x
-        local oy = offset[2] or offset.y
-        if ox and oy then
-          for _, d in pairs(fan) do
-            expanded[#expanded + 1] = { ox + d[1], oy + d[2] }
-          end
-        end
+      for i = 0, slot_count - 1 do
+        local angle = (2 * math.pi * i) / slot_count
+        expanded[#expanded + 1] = { radius * math.cos(angle), radius * math.sin(angle) }
       end
       roboport.charging_offsets = expanded
-      -- Must stay 0/nil: a non-zero count makes robots ignore the offsets above
-      -- and stack at the roboport centre. The engine derives the count from the
-      -- offset array instead.
+      -- Stay 0/nil so the engine derives the slot count from the offsets above.
       roboport.charging_station_count = nil
     elseif roboport.charging_station_count and roboport.charging_station_count > 0 then
       -- Roboport that defines a slot count but no offsets (the engine
