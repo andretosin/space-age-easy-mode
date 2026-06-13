@@ -22,11 +22,14 @@ jobs:
           VERSION=$(python -c "import json; print(json.load(open('info.json'))['version'])")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           MOD_NAME=$(python -c "import json; print(json.load(open('info.json'))['name'])")
-          echo "zip=${MOD_NAME}_${VERSION}.zip" >> "$GITHUB_OUTPUT"
+          echo "package=${MOD_NAME}_${VERSION}" >> "$GITHUB_OUTPUT"
 
-      - name: Upload zip artifact
+      - name: Upload mod artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.info.outputs.zip }}
-          path: ${{ steps.info.outputs.zip }}
+          # Upload the parent build/ dir so the mod folder is kept inside the
+          # artifact. Downloading gives <package>.zip -> <package>/ -> files: a
+          # single zip Factorio can use directly, with no zip-inside-a-zip.
+          name: ${{ steps.info.outputs.package }}
+          path: build
           retention-days: 7
