@@ -36,6 +36,14 @@ if [[ -z "${FACTORIO_MOD_PORTAL_TOKEN}" ]]; then
   exit 1
 fi
 
+# In GitHub Actions, register the trimmed token for log masking. GitHub only
+# auto-masks the exact secret value, so the trimmed variant could otherwise slip
+# through if a future change ever echoed it. Skipped outside Actions, where
+# "::add-mask::" would just print the value to the terminal.
+if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+  echo "::add-mask::${FACTORIO_MOD_PORTAL_TOKEN}"
+fi
+
 read -r MOD_NAME VERSION < <(python - <<'PY' "${INFO_JSON}"
 import json
 import pathlib
