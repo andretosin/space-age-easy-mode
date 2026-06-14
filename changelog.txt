@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.8
+Date: 13. 06. 2026
+  Features:
+    - Added localization for German, Russian, French, Spanish, Simplified Chinese, Japanese, Polish, Czech, Brazilian Portuguese, and Ukrainian.
+  Info:
+    - Hardened automated Factorio Mod Portal publishing (token handling and clearer upload errors).
+---------------------------------------------------------------------------------------------------
 Version: 1.0.7
 Date: 12. 06. 2026
   Bugfixes:
