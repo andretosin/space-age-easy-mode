@@ -3,6 +3,7 @@ Version: 1.0.9
 Date: 14. 06. 2026
   Features:
     - Player-built lightning rods (lightning rod and lightning collector) now have 2x lightning collection range.
+    - Accumulators now have 2x energy capacity and 2x power input/output.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.8
 Date: 13. 06. 2026

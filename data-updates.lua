@@ -139,6 +139,7 @@ end
 -- Covers steam/combustion/turbines, solar panels, fusion/plasma generators,
 -- and lightning rods (normal + advanced).
 -- Player-built lightning rods also gain 2× lightning collection range.
+-- Accumulators get 2× energy capacity and 2× power input/output.
 -- Applied as a base prototype modification — no research required.
 -- =============================================================================
 
@@ -197,6 +198,24 @@ if data.raw["lightning-attractor"] then
     -- Fulgoran ruin attractors keep their vanilla range.
     if attractor.range_elongation and has_flag(attractor, "player-creation") then
       attractor.range_elongation = attractor.range_elongation * 2
+    end
+  end
+end
+
+-- Accumulators: double storage capacity and charge/discharge throughput.
+if data.raw["accumulator"] then
+  for _, accumulator in pairs(data.raw["accumulator"]) do
+    local source = accumulator.energy_source
+    if source then
+      if source.buffer_capacity then
+        source.buffer_capacity = multiply_energy(source.buffer_capacity, 2)
+      end
+      if source.input_flow_limit then
+        source.input_flow_limit = multiply_energy(source.input_flow_limit, 2)
+      end
+      if source.output_flow_limit then
+        source.output_flow_limit = multiply_energy(source.output_flow_limit, 2)
+      end
     end
   end
 end
