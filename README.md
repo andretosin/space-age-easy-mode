@@ -64,7 +64,7 @@ Pushes to `develop` build the same versioned zip as a workflow artifact for loca
 
 ## Version History
 
-- `1.0.9` - Player-built lightning rods (normal + advanced) gain 2× lightning collection range.
+- `1.0.9` - Player-built lightning rods (normal + advanced) gain 2× lightning collection range; accumulators get 2× energy capacity and 2× power input/output.
 - `1.0.8` - Added localization for 10 languages (de, ru, fr, es-ES, zh-CN, ja, pl, cs, pt-BR, uk); hardened automated Mod Portal publishing.
 - `1.0.7` - Fixed roboport charging so robots spread around the port instead of stacking at its centre; general improvements to package infrastructure and automated Mod Portal publishing.
 - `1.0.6` - Updated release automation to use the version declared in `info.json` and publish main-branch releases to the Factorio Mod Portal.
