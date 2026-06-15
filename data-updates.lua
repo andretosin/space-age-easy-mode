@@ -30,6 +30,15 @@ local function get_bonus(v)
   return v.bonus or 0
 end
 
+-- True if a prototype declares the given entity flag (e.g. "player-creation").
+local function has_flag(entity, flag)
+  if not entity.flags then return false end
+  for _, f in pairs(entity.flags) do
+    if f == flag then return true end
+  end
+  return false
+end
+
 -- =============================================================================
 -- FR-1: Global Machine Buff
 --
@@ -129,6 +138,7 @@ end
 -- Doubles electricity production for all power generators.
 -- Covers steam/combustion/turbines, solar panels, fusion/plasma generators,
 -- and lightning rods (normal + advanced).
+-- Player-built lightning rods also gain 2× lightning collection range.
 -- Applied as a base prototype modification — no research required.
 -- =============================================================================
 
@@ -180,6 +190,13 @@ if data.raw["lightning-attractor"] then
       if source.buffer_capacity then
         source.buffer_capacity = multiply_energy(source.buffer_capacity, 2)
       end
+    end
+
+    -- Double the lightning collection range of the player-built rods (lightning
+    -- rod and lightning collector / advanced rod). Gated on player-creation so
+    -- Fulgoran ruin attractors keep their vanilla range.
+    if attractor.range_elongation and has_flag(attractor, "player-creation") then
+      attractor.range_elongation = attractor.range_elongation * 2
     end
   end
 end
